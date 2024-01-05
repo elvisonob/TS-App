@@ -1,14 +1,12 @@
-import React from 'react';
-const Todos = () => {
-  const todos = ['Learning React', 'Learning TypeScript'];
-
+import Todo from '../models/todo';
+const Todos: React.FC<{ items: Todo[] }> = (props) => {
   return (
     <div>
-      {todos.map((todo) => (
-        <ul>
-          <li>{todo}</li>
-        </ul>
-      ))}
+      <ul>
+        {props.items.map((item) => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
     </div>
   );
 };
