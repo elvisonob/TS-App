@@ -3,19 +3,17 @@ interface Todo {
   text: string;
 }
 
-interface Props {
-  todo: Todo[];
-  remove: (id: number) => void;
-}
+// interface Props {
+//   todo: Todo[];
+// }
 
-export default function TodosList({ todo, remove }: Props) {
+export default function TodoList({ todo }: { todo: Todo[] }) {
   return (
     <div>
-      <h3>Todo List</h3>
+      <h2>List of Todo</h2>
       {todo.map((eachTodo) => (
-        <div key={eachTodo.id}>
-          <li>{eachTodo.text}</li>
-          <button onClick={() => remove(eachTodo.id)}>Remove</button>
+        <div>
+          <li key={eachTodo.id}>{eachTodo.text}</li>
         </div>
       ))}
     </div>

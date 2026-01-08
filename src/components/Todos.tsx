@@ -1,43 +1,35 @@
 import { useState } from 'react';
 import TodosList from './TodosList';
 
-interface Todo {
+interface ArrayContent {
   id: number;
   text: string;
 }
+export default function Todo() {
+  const [todos, setTodos] = useState<string>('');
+  const [todoList, setTodoList] = useState<ArrayContent[]>([]);
 
-export default function Todos() {
-  const [todoText, setTodoText] = useState<string>('');
-  const [todo, setTodo] = useState<Todo[]>([]);
-
-  function handleTodoText(e: React.ChangeEvent<HTMLInputElement>) {
-    setTodoText(e.target.value);
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+    setTodos(e.target.value);
   }
 
-  function handleButtonSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(todoText);
-    setTodo((prev) => {
-      return [{ id: Math.random(), text: todoText }, ...prev];
+    setTodoList((prev) => {
+      return [{ id: Math.random(), text: todos }, ...prev];
     });
-    setTodoText('');
-  }
 
-  function removeTodo(id: number) {
-    setTodo((prev) => {
-      return prev.filter((eachItem) => eachItem.id !== id);
-    });
+    setTodos('');
   }
-
   return (
     <div>
       <h1>TODO APP</h1>
       <h3>Add a Todo</h3>
-      <input id="text" type="text" onChange={handleTodoText} value={todoText} />
-      <form onSubmit={handleButtonSubmit}>
+      <input id="text" type="text" value={todos} onChange={handleInput} />
+      <form onSubmit={onSubmit}>
         <button>Submit</button>
       </form>
-      <TodosList todo={todo} remove={removeTodo} />
+      <TodosList todo={todoList} />
     </div>
   );
 }
